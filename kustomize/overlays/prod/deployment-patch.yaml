@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-practice-app
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+        - name: k8s-practice-app
+          env:
+            - name: ENVIRONMENT
+              value: prod

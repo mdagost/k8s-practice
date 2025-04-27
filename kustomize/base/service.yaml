@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: k8s-practice-app
+spec:
+  type: ClusterIP
+  selector:
+    app: k8s-practice-app
+  ports:
+    - name: server
+      protocol: TCP
+      port:  80
+      targetPort: server

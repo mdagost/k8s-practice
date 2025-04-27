@@ -17,7 +17,7 @@ spec:
     spec:
       restartPolicy: Always
       containers:
-      - name: app
+      - name: k8s-practice-app
         image: k8s-practice-app
         imagePullPolicy: IfNotPresent
         env:
