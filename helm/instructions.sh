@@ -11,6 +11,8 @@ kubectl config current-context
 # build the docker container and push it to the k8s cluster
 docker build -t k8s-practice-app ../app/
 kind load docker-image k8s-practice-app
+# for the helm test--you may need to pull it locally first
+kind load docker-image busybox
 
 # create our namespaces
 kubectl create ns dev
@@ -22,8 +24,8 @@ helm upgrade --install k8s-practice-app-dev-release k8s-practice-app/ -f values-
 helm upgrade --install k8s-practice-app-prod-release k8s-practice-app/ -f values-prod.yaml
 
 # or apply our helm chart from the remote chart, mimicing a more real-life scenario
-helm upgrade --install k8s-practice-app-dev-release https://raw.githubusercontent.com/mdagost/k8s-practice-app/main/k8s-practice-app-0.1.0.tgz -f values-dev.yaml
-helm upgrade --install k8s-practice-app-prod-release https://raw.githubusercontent.com/mdagost/k8s-practice-app/main/k8s-practice-app-0.1.0.tgz -f values-prod.yaml
+helm upgrade --install k8s-practice-app-dev-release https://github.com/mdagost/k8s-practice/raw/refs/heads/main/helm/k8s-practice-app-0.1.0.tgz -f values-dev.yaml
+helm upgrade --install k8s-practice-app-prod-release https://github.com/mdagost/k8s-practice/raw/refs/heads/main/helm/k8s-practice-app-0.1.0.tgz -f values-prod.yaml
 
 # check that everything started
 kubectl get all -n dev
