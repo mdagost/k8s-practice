@@ -1,0 +1,6 @@
+environment: prod
+
+replicaCount: 3
+
+service:
+  port: 80

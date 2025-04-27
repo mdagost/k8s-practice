@@ -1,0 +1,5 @@
+# Default values for k8s-practice-app.
+replicaCount: 1
+
+service:
+  port: 80

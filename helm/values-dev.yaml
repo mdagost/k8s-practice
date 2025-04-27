@@ -1,0 +1,6 @@
+environment: dev
+
+replicaCount: 1
+
+service:
+  port: 80

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "k8s-practice-app.fullname" . }}
+  namespace: {{ .Values.environment }}
+  labels:
+    app: {{ include "k8s-practice-app.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "k8s-practice-app.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "k8s-practice-app.fullname" . }}
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: {{ include "k8s-practice-app.fullname" . }}
+        image: k8s-practice-app
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: ENVIRONMENT
+            value: {{ .Values.environment }}
+          - name: NAME
+            value: Michelangelo
+        ports:
+          - containerPort: {{ .Values.service.port }}
+            name: server
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: server
