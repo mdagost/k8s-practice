@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: k8s-practice-app-dev-release
+  namespace: dev
+spec:
+  interval: 2m
+  chart:
+    spec:
+      chart: k8s-practice-app
+      version: "0.1.0"      # pin a specific version (or use a semver range)
+      sourceRef:
+        kind: HelmRepository
+        name:  k8s-practice-repo
+        namespace: flux-system
+  # (optional) Helm values go here
+  values:
+    environment: dev
+    replicaCount: 1
+    service:
+      port: 80
