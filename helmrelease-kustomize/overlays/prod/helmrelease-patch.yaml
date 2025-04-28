@@ -1,0 +1,10 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: release
+spec:
+  values:
+    environment: prod
+    replicaCount: 3
+    service:
+      port: 80

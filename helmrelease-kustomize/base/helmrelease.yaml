@@ -1,0 +1,14 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: release
+spec:
+  interval: 2m
+  chart:
+    spec:
+      chart: k8s-practice-app
+      version: "0.1.0"      # pin a specific version (or use a semver range)
+      sourceRef:
+        kind: HelmRepository
+        name:  k8s-practice-repo
+        namespace: flux-system
