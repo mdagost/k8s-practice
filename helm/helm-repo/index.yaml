@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  k8s-practice-app:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-04-28T09:33:03.122352-05:00"
+    description: A Helm chart for Kubernetes
+    digest: f3c687a9979a7477cbfe0e55da5b32d35c98be1ce3fde312e57b9c0acb7dfa28
+    name: k8s-practice-app
+    type: application
+    urls:
+    - https://github.com/mdagost/k8s-practice/raw/refs/heads/main/helm/helm-repo/k8s-practice-app-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-04-28T09:33:03.122159-05:00"
