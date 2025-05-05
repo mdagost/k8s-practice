@@ -13,6 +13,18 @@ spec:
         kind: HelmRepository
         name:  k8s-practice-repo
         namespace: flux-system
+  install:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: ""
+      annotations:
+        argocd.argoproj.io/tracking-id: ""
+  upgrade:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: ""
+      annotations:
+        argocd.argoproj.io/tracking-id: ""
   # (optional) Helm values go here
   values:
     environment: dev

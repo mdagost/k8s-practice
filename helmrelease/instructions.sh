@@ -9,7 +9,7 @@ kind create cluster
 kubectl config current-context
 
 # we have to patch coredns so kind can access the internet (via chatgpt)
-kubectl patch configmap coredns -n kube-system --type merge -p '{"data":{"Corefile":".:53 {\n    errors\n    health\n    ready\n    kubernetes cluster.local in-addr.arpa ip6.arpa {\n       pods insecure\n       fallthrough in-addr.arpa ip6.arpa\n    }\n    prometheus :9153\n    forward . 8.8.8.8 1.1.1.1\n    cache 30\n    loop\n    reload\n    loadbalance\n}"}}'
+kubectl patch configmap coredns -n kube-system --type merge -p '{"data":{"Corefile":".:53 {\n    errors\n    health\n    ready\n    kubernetes cluster.local in-addr.arpa ip6.arpa {\n       pods insecure\n       fallthrough in-addr.arpa ip6.arpa\n    }\n    prometheus :9153\n    forward . 8.8.8.8 1.1.1.1 10.48.147.40 10.66.147.40 10.48.147.55 10.48.147.40 10.66.147.40 10.48.147.55 {\n        policy sequential\n        max_fails 1\n    }\n    cache 30\n    loop\n    reload\n    loadbalance\n}"}}'
 
 # build the docker container and push it to the k8s cluster
 docker build -t k8s-practice-app ../app/
