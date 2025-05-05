@@ -25,7 +25,7 @@ docker pull ghcr.io/fluxcd/source-controller:v1.5.0
 docker pull ghcr.io/fluxcd/helm-controller:v1.2.0
 kind load docker-image ghcr.io/fluxcd/source-controller:v1.5.0
 kind load docker-image ghcr.io/fluxcd/helm-controller:v1.2.0
-flux install --components=source-controller,helm-controller
+flux install --components=source-controller,helm-controller -v v2.5.1
 
 # apply our helmrepository so flux can find the chart
 kubectl apply -f manifests/helmrepository.yaml
