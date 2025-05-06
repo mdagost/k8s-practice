@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8s-practice-app
-  namespace: prod
+  name: dev-k8s-practice-app
+  namespace: dev
   labels:
-    app: k8s-practice-app
+    app: dev-k8s-practice-app
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: k8s-practice-app
+      app: dev-k8s-practice-app
   template:
     metadata:
       labels:
-        app: k8s-practice-app
+        app: dev-k8s-practice-app
     spec:
       restartPolicy: Always
       containers:
-      - name: k8s-practice-app
+      - name: dev-k8s-practice-app
         image: k8s-practice-app
         imagePullPolicy: IfNotPresent
         env:
           - name: ENVIRONMENT
-            value: prod
+            value: dev
           - name: NAME
             value: Michelangelo
         ports:

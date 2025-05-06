@@ -21,27 +21,27 @@ kubectl create ns prod
 
 # make sure helm is installed; on a mac you can just do brew install helm
 # apply our helm chart from the local files
-helm upgrade --install k8s-practice-app-dev-release k8s-practice-app/ -f values.dev.yaml
-helm upgrade --install k8s-practice-app-prod-release k8s-practice-app/ -f values.prod.yaml
+helm upgrade --install dev-helm-k8s-practice-app k8s-practice-app/ -f values.dev.yaml -n dev
+helm upgrade --install prod-helm-k8s-practice-app k8s-practice-app/ -f values.prod.yaml -n prod
 
 # or apply our helm chart from the remote chart, mimicing a more real-life scenario
-helm upgrade --install k8s-practice-app-dev-release https://github.com/mdagost/k8s-practice/raw/refs/heads/main/helm/helm-repo/k8s-practice-app-0.1.0.tgz -f values.dev.yaml
-helm upgrade --install k8s-practice-app-prod-release https://github.com/mdagost/k8s-practice/raw/refs/heads/main/helm/helm-repo/k8s-practice-app-0.1.0.tgz -f values.prod.yaml
+helm upgrade --install dev-helm-k8s-practice-app https://github.com/mdagost/k8s-practice/raw/refs/heads/main/helm/helm-repo/k8s-practice-app-0.1.0.tgz -f values.dev.yaml -n dev
+helm upgrade --install prod-helm-k8s-practice-app https://github.com/mdagost/k8s-practice/raw/refs/heads/main/helm/helm-repo/k8s-practice-app-0.1.0.tgz -f values.prod.yaml -n prod
 
 # check that everything started
 kubectl get all -n dev
 kubectl get all -n prod
 
 # run the helm tests
-helm test --logs k8s-practice-app-dev-release
-helm test --logs k8s-practice-app-prod-release
+helm test --logs dev-helm-k8s-practice-app -n dev
+helm test --logs prod-helm-k8s-practice-app -n prod
 
 # hit the dev service;  should get {"message":"Hello to Michelangelo from dev!!"}
-kubectl port-forward svc/k8s-practice-app-dev-release 8080:80 -n dev
+kubectl port-forward svc/dev-helm-k8s-practice-app 8080:80 -n dev
 curl localhost:8080/hello
 
 # hit the prod service;  should get {"message":"Hello to Michelangelo from prod!!"}
-kubectl port-forward svc/k8s-practice-app-prod-release 8080:80 -n prod
+kubectl port-forward svc/prod-helm-k8s-practice-app 8080:80 -n prod
 curl localhost:8080/hello
 
 # clean up

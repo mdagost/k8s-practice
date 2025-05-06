@@ -28,21 +28,21 @@ kind load docker-image ghcr.io/fluxcd/helm-controller:v1.2.0
 flux install --components=source-controller,helm-controller -v v2.5.1
 
 # apply our helmrepository so flux can find the chart
-kubectl apply -f manifests/helmrepository.yaml
+kubectl apply -f manifests/repo/helmrepository.yaml
 # now apply the helmreleases
-kubectl apply -f manifests/helmrelease.dev.yaml
-kubectl apply -f manifests/helmrelease.prod.yaml
+kubectl apply -f manifests/dev/helmrelease.dev.yaml
+kubectl apply -f manifests/prod/helmrelease.prod.yaml
 
 # check that everything started
 kubectl get all -n dev
 kubectl get all -n prod
 
 # hit the dev service;  should get {"message":"Hello to Michelangelo from dev!!"}
-kubectl port-forward svc/k8s-practice-app-dev-release 8080:80 -n dev
+kubectl port-forward svc/dev-helmrelease-k8s-practice-app 8080:80 -n dev
 curl localhost:8080/hello
 
 # hit the prod service;  should get {"message":"Hello to Michelangelo from prod!!"}
-kubectl port-forward svc/k8s-practice-app-prod-release 8080:80 -n prod
+kubectl port-forward svc/prod-helmrelease-k8s-practice-app 8080:80 -n prod
 curl localhost:8080/hello
 
 # clean up

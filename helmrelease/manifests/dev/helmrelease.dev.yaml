@@ -1,8 +1,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: k8s-practice-app-prod-release
-  namespace: prod
+  name: dev-helmrelease-k8s-practice-app
+  namespace: dev
 spec:
   interval: 2m
   chart:
@@ -15,7 +15,7 @@ spec:
         namespace: flux-system
   # (optional) Helm values go here
   values:
-    environment: prod
-    replicaCount: 3
+    environment: dev
+    replicaCount: 1
     service:
       port: 80

@@ -5,7 +5,7 @@ resources:
 
 namespace: prod
 
-namePrefix: k8s-practice-app-prod-
+namePrefix: prod-helmrelease-kustomize-k8s-practice-app
 
 patches:
 - path: helmrelease-patch.yaml

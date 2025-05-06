@@ -25,11 +25,11 @@ kubectl get all -n dev
 kubectl get all -n prod
 
 # hit the dev service;  should get {"message":"Hello to Michelangelo from dev!!"}
-kubectl port-forward svc/k8s-practice-app-dev 8080:80 -n dev
+kubectl port-forward svc/dev-kustomize-k8s-practice-app 8080:80 -n dev
 curl localhost:8080/hello
 
 # hit the prod service;  should get {"message":"Hello to Michelangelo from prod!!"}
-kubectl port-forward svc/k8s-practice-app-prod 8080:80 -n prod
+kubectl port-forward svc/prod-kustomize-k8s-practice-app 8080:80 -n prod
 curl localhost:8080/hello
 
 # clean up

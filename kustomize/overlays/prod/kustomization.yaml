@@ -5,7 +5,7 @@ resources:
 
 namespace: prod
 
-nameSuffix: -prod
+namePrefix: prod-kustomize-
 
 patches:
 - path: deployment-patch.yaml
