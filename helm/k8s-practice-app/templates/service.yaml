@@ -2,7 +2,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: {{ include "k8s-practice-app.fullname" . }}
-  namespace: {{ .Values.environment }}
   labels:
     app: {{ include "k8s-practice-app.fullname" . }}
 spec:

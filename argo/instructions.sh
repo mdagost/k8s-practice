@@ -45,7 +45,7 @@ argocd login localhost:8080 --insecure --grpc-web
 # add our cluster to argo; note that --in-cluster flag only came after an hour
 # of debugging with 4o and then finally switching to o3, which
 # explained it https://chatgpt.com/share/6816b9b9-e1bc-8003-9fa8-8ecabf4cda29
-argocd cluster add kind-kind --in-cluster
+argocd cluster add kind-kind --in-cluster -y
 
 # build the docker container and push it to the k8s cluster
 docker build -t k8s-practice-app ../app/
