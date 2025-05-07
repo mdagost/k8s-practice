@@ -57,6 +57,7 @@ kubectl create ns prod
 
 # create our applications via bootstrapping the app-of-apps
 kubectl apply -f app-of-apps/application.yaml
+argocd app sync argocd/app-of-apps
 
 # to manually sync an app, use the UI or
 #argocd app sync argocd/<my-app>
