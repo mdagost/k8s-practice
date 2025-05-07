@@ -8,10 +8,12 @@ spec:
   source:
     repoURL: https://github.com/mdagost/k8s-practice.git
     path: argo/apps/
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: default
   syncPolicy:
     automated:
-      prune: true
+      prune: false # let the child apps handle pruning
       selfHeal: true
