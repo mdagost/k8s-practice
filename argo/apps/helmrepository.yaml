@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helmrepository
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mdagost/k8s-practice.git
+    path: helmrelease/manifests/repo/
+  destination:
+    server: https://kubernetes.default.svc

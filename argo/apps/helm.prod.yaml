@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mdagost/k8s-practice.git
+    path: helm/k8s-practice-app/
+    helm:
+      valueFiles:
+        - ../values.prod.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prod

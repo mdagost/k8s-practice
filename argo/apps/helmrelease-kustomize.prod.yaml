@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helmrelease-kustomize-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mdagost/k8s-practice.git
+    path: helmrelease-kustomize/overlays/prod/
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
