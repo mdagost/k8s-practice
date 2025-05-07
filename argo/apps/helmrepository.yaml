@@ -10,3 +10,7 @@ spec:
     path: helmrelease/manifests/repo/
   destination:
     server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

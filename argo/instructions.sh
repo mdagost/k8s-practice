@@ -42,6 +42,9 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 # use that same password to login to the cluster
 argocd login localhost:8080 --insecure --grpc-web
 
+# set the cluster to check git every 15 seconds
+kubectl patch configmap argocd-cm -n argocd --type merge -p '{"data":{"appResyncPeriod":"15"}}'
+
 # add our cluster to argo; note that --in-cluster flag only came after an hour
 # of debugging with 4o and then finally switching to o3, which
 # explained it https://chatgpt.com/share/6816b9b9-e1bc-8003-9fa8-8ecabf4cda29

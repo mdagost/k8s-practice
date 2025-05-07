@@ -10,3 +10,7 @@ spec:
     path: helmrelease/manifests/dev/
   destination:
     server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
