@@ -55,72 +55,18 @@ kind load docker-image k8s-practice-app
 kubectl create ns dev
 kubectl create ns prod
 
-# create our applications
-############
-# k8s only #
-############
-argocd app create k8s-only --repo https://github.com/mdagost/k8s-practice.git --path k8s-only/manifests/ --dest-server https://kubernetes.default.svc --dest-namespace default
-argocd app sync argocd/k8s-only
-# delete the app in the UI or
-argocd app delete k8s-only --cascade --propagation-policy=foreground -y
+# create our applications via bootstrapping the app-of-apps
+kubectl apply -f app-of-apps/application.yaml
 
-#############
-# kustomize #
-#############
-argocd app create kustomize-dev --repo https://github.com/mdagost/k8s-practice.git --path kustomize/overlays/dev/ --dest-server https://kubernetes.default.svc --dest-namespace default
-argocd app create kustomize-prod --repo https://github.com/mdagost/k8s-practice.git --path kustomize/overlays/prod/ --dest-server https://kubernetes.default.svc --dest-namespace default
-argocd app sync argocd/kustomize-dev
-argocd app sync argocd/kustomize-prod
-# delete the app in the UI or
-argocd app delete kustomize-dev --cascade --propagation-policy=foreground -y
-argocd app delete kustomize-prod --cascade --propagation-policy=foreground -y
+# to manually sync an app, use the UI or
+#argocd app sync argocd/<my-app>
 
-########
-# helm #
-########
-argocd app create helm-dev --repo https://github.com/mdagost/k8s-practice.git --path helm/k8s-practice-app/ --dest-server https://kubernetes.default.svc --dest-namespace default --values ../values.dev.yaml
-argocd app create helm-prod --repo https://github.com/mdagost/k8s-practice.git --path helm/k8s-practice-app/ --dest-server https://kubernetes.default.svc --dest-namespace default --values ../values.prod.yaml
-argocd app sync argocd/helm-dev
-argocd app sync argocd/helm-prod
-# delete the app in the UI o
-argocd app delete helm-dev --cascade --propagation-policy=foreground -y
-argocd app delete helm-prod --cascade --propagation-policy=foreground -y
-
-###############
-# helmrelease #
-###############
-argocd app create helmrelease --repo https://github.com/mdagost/k8s-practice.git --path helmrelease/manifests/ --dest-server https://kubernetes.default.svc --dest-namespace default
-argocd app sync argocd/helmrelease
-# delete the app in the UI or
-argocd app delete helmrelease --cascade --propagation-policy=foreground -y
-
-###########################
-# helmrelease + kustomize #
-###########################
-# create the helm repository
-argocd app create helmrelease-kustomize-repo --repo https://github.com/mdagost/k8s-practice.git --path helmrelease-kustomize/manifests/ --dest-server https://kubernetes.default.svc --dest-namespace default
-rver https://kubernetes.default.svc --dest-namespace default
-argocd app create helmrelease-kustomize-dev --repo https://github.com/mdagost/k8s-practice.git --path helmrelease-kustomize/overlays/dev/ --dest-server https://kubernetes.default.svc --dest-namespace default
-argocd app create helmrelease-kustomize-prod --repo https://github.com/mdagost/k8s-practice.git --path helmrelease-kustomize/overlays/prod/ --dest-server https://kubernetes.default.svc --dest-namespace default
-argocd app sync argocd/helmrelease-kustomize-repo
-argocd app sync argocd/helmrelease-kustomize-dev
-argocd app sync argocd/helmrelease-kustomize-prod
-# delete the app in the UI or
-argocd app delete helmrelease-kustomize-repo --cascade --propagation-policy=foreground -y
-argocd app delete helmrelease-kustomize-dev --cascade --propagation-policy=foreground -y
-argocd app delete helmrelease-kustomize-prod --cascade --propagation-policy=foreground -y
+# to delete an app, use the UI or
+#argocd app delete <my-app> --cascade --propagation-policy=foreground -y
 
 # check that everything started
 kubectl get all -n dev
 kubectl get all -n prod
-
-# hit the dev service;  should get {"message":"Hello to Michelangelo from dev!!"}
-kubectl port-forward svc/k8s-practice-app 8081:80 -n dev
-curl localhost:8081/hello
-
-# hit the prod service;  should get {"message":"Hello to Michelangelo from prod!!"}
-kubectl port-forward svc/k8s-practice-app 8081:80 -n prod
-curl localhost:8081/hello
 
 # clean up
 kind delete cluster

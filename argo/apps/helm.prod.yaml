@@ -9,6 +9,7 @@ spec:
     repoURL: https://github.com/mdagost/k8s-practice.git
     path: helm/k8s-practice-app/
     helm:
+      releaseName: prod-helm-k8s-practice-app
       valueFiles:
         - ../values.prod.yaml
   destination:
